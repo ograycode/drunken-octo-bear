@@ -1,4 +1,6 @@
 DrunkenOctoBear::Application.routes.draw do
+  get "converter/convert"
+
   get "welcome/index"
 
   # The priority is based upon order of creation:
