@@ -3,8 +3,9 @@
 = form_tag("converter/convert", :method => "get") do
   = label_tag(:input, "Input:")
   = text_field_tag(:input)
-  = radio_button_tag(:direction, "to_c")
+  = radio_button_tag(:direction, "to_c", :id=>"direction_to_c")
   = label_tag(:direction_to_c, "To Celsius")
-  = radio_button_tag(:direction, "to_f")
+  = radio_button_tag(:direction, "to_f", :id=>"direction_to_f")
   = label_tag(:direction_to_f, "To Fahrenheit")
-  = submit_tag("Convert")
+  = submit_tag("Convert", :id=>'submit')
+#answer
