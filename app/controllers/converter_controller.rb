@@ -4,32 +4,44 @@ class ConverterController < ApplicationController
 
   include ConverterHelper
 
+  layout nil
+
   VALID_DIRECTION_STRINGS = %w(to_f to_c)
 
   def convert
-    validate
-    @answer = direction == 'to_c' ? f_to_c(input) : c_to_f(input)
-    @direction_caption = direction_description_string
+    if validate?
+      @answer = direction == 'to_c' ? f_to_c(input) : c_to_f(input)
+      @direction_caption = direction_description_string
+      @valid = true
+    else
+      @valid = false
+    end
   end
 
 
-  def validate
-    validate_direction_string(direction)
-    validate_temperature_input
+  def validate?
+    if validate_direction_string(direction) && validate_temperature_input
+      return true
+    end
+    false
   end
 
 
   def validate_direction_string(string)
     unless VALID_DIRECTION_STRINGS.include?(string)
-      raise "Application error: unit parameter has an invalid value (not in #{VALID_DIRECTION_STRINGS.join(', ')})."
+      flash.now[:error] = "Application error: unit parameter has an invalid value (not in #{VALID_DIRECTION_STRINGS.join(', ')})."
+      return false
     end
+    true
   end
 
 
   def validate_temperature_input
     unless numeric?(params[:input])
-      raise "Temperature input must be a number."
+      flash.now[:error] = "Temperature input must be a number."
+      return false
     end
+    true
   end
 
 

@@ -1,8 +1,10 @@
-%h1
-  Converting
-  = @direction_caption
-%br
-%p
-  Answer is:
-  = @answer
+=flash[:error]
+- if @valid
+  %h1
+    Converting
+    = @direction_caption
+  %br
+  %p
+    Answer is:
+    = @answer
 

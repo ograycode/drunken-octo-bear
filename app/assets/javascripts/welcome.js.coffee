@@ -12,5 +12,12 @@
       direction = $('input:radio[name=direction]:checked').val()
       input = $('#input').val()
       url = "converter/convert?input=" + input + "&direction=" + direction
-      $.get(url , (data) ->
-        $('#answer').html(data)))
+
+      jqxhr = $.get(url , (data) ->
+        $('#answer').html(data))
+
+
+      jqxhr.error( (jqxhr, textStatus, errorThrown) ->
+        alert "Error " +  jqxhr.status + ": " + jqxhr.statusText +"\n"+
+          jqxhr)
+    )
